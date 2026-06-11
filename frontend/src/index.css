@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0F0F0F;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+  }
+}
+
+@layer components {
+  .gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #E6C65C 50%, #D4AF37 100%);
+  }
+
+  .gold-text {
+    background: linear-gradient(135deg, #D4AF37, #E6C65C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-gold {
+    @apply gold-gradient text-black font-semibold px-6 py-3 rounded-lg
+           transition-all duration-300 hover:shadow-gold-lg hover:scale-105
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-gold-outline {
+    @apply border border-gold text-gold px-6 py-3 rounded-lg font-semibold
+           transition-all duration-300 hover:bg-gold hover:text-black
+           hover:shadow-gold active:scale-95;
+  }
+
+  .btn-dark {
+    @apply bg-dark-800 text-text-primary px-6 py-3 rounded-lg font-semibold
+           transition-all duration-300 hover:bg-dark-700 border border-white/10
+           active:scale-95;
+  }
+
+  .card-premium {
+    @apply bg-dark-card rounded-xl border border-white/5
+           transition-all duration-300;
+  }
+
+  .card-premium:hover {
+    @apply border-gold/30 shadow-gold;
+  }
+
+  .input-dark {
+    @apply w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-3
+           text-text-primary placeholder-text-secondary/50
+           focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30
+           transition-all duration-200;
+  }
+
+  .glass-effect {
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .animated-gradient {
+    background: linear-gradient(
+      -45deg,
+      #0F0F0F,
+      #1A1A1A,
+      #0F0F0F,
+      #111111
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
