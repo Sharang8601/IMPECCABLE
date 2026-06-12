@@ -9,7 +9,7 @@ const CustomerLayout = () => {
   return (
     <div className="min-h-screen bg-dark">
       <Navbar onCartClick={() => setCartOpen(true)} />
-      <Outlet />
+      <Outlet context={{ setCartOpen }} />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </div>
   );

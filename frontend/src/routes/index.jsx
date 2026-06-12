@@ -8,7 +8,7 @@ import MenuPage from "../pages/customer/MenuPage";
 import AuthSuccess from "../pages/auth/AuthSuccess";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminCategories from "../pages/admin/AdminCategories";
-import AdminSubCategories from "../pages/admin/AdminSubCategories";
+
 import AdminServices from "../pages/admin/AdminServices";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminCustomers from "../pages/admin/AdminCustomers";
@@ -43,7 +43,7 @@ const AppRoutes = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboard />} />
         <Route path="categories" element={<AdminCategories />} />
-        <Route path="subcategories" element={<AdminSubCategories />} />
+
         <Route path="services" element={<AdminServices />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="customers" element={<AdminCustomers />} />

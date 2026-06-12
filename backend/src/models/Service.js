@@ -3,9 +3,14 @@ import { slugify } from "../utils/slugify.js";
 
 const serviceSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
+      trim: true,
+      maxlength: 140,
+    },
+    title: {
+      type: String,
       trim: true,
       maxlength: 140,
     },
@@ -25,6 +30,10 @@ const serviceSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    mrp: {
+      type: Number,
+      default: 0,
+    },
     duration: {
       type: String,
       required: true,
@@ -35,16 +44,21 @@ const serviceSchema = new mongoose.Schema(
       url: { type: String, default: "" },
       publicId: { type: String, default: "" },
     },
-    category: {
+    categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: true,
       index: true,
     },
-    subCategory: {
+    category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "SubCategory",
+      ref: "Category",
+      index: true,
+    },
+    gender: {
+      type: String,
       required: true,
+      enum: ["Male", "Female"],
       index: true,
     },
     isActive: {
@@ -60,11 +74,24 @@ const serviceSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-serviceSchema.index({ category: 1, subCategory: 1, slug: 1 }, { unique: true });
+// We index by categoryId, gender, and slug
+serviceSchema.index({ categoryId: 1, gender: 1, slug: 1 }, { unique: true });
 
-serviceSchema.pre("validate", function setSlug(next) {
-  if (!this.slug && this.title) {
-    this.slug = slugify(this.title);
+serviceSchema.pre("validate", function setCompatibilityFields(next) {
+  if (!this.title && this.name) {
+    this.title = this.name;
+  }
+  if (!this.name && this.title) {
+    this.name = this.title;
+  }
+  if (!this.slug && this.name) {
+    this.slug = slugify(this.name);
+  }
+  if (!this.category && this.categoryId) {
+    this.category = this.categoryId;
+  }
+  if (!this.categoryId && this.category) {
+    this.categoryId = this.category;
   }
   next();
 });

@@ -17,14 +17,6 @@ export const categoryApi = {
   remove: (id) => api.delete(`/categories/${id}`),
 };
 
-export const subCategoryApi = {
-  list: (params) => api.get("/subcategories", { params }),
-  listAdmin: () => api.get("/subcategories/admin"),
-  create: (data) => api.post("/subcategories", data),
-  update: (id, data) => api.patch(`/subcategories/${id}`, data),
-  remove: (id) => api.delete(`/subcategories/${id}`),
-};
-
 export const authApi = {
   me: () => api.get("/auth/me"),
   logout: () => api.post("/auth/logout"),

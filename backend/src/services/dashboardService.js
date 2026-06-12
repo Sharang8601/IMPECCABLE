@@ -1,15 +1,13 @@
 import { categoryRepository } from "../repositories/categoryRepository.js";
 import { serviceRepository } from "../repositories/serviceRepository.js";
-import { subCategoryRepository } from "../repositories/subCategoryRepository.js";
 import { userService } from "./userService.js";
 import { orderService } from "./orderService.js";
 
 class DashboardService {
   async getStats() {
-    const [totalServices, totalCategories, totalSubCategories, customers, orderStats] = await Promise.all([
+    const [totalServices, totalCategories, customers, orderStats] = await Promise.all([
       serviceRepository.count(),
       categoryRepository.count(),
-      subCategoryRepository.count(),
       userService.countCustomers(),
       orderService.dashboardStats(),
     ]);
@@ -17,7 +15,7 @@ class DashboardService {
     return {
       totalServices,
       totalCategories,
-      totalSubCategories,
+      totalSubCategories: 0,
       totalCustomers: customers,
       totalOrders: orderStats.totalOrders,
       pendingOrders: orderStats.pendingOrders,

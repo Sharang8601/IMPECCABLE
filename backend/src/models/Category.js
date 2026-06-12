@@ -15,10 +15,20 @@ const categorySchema = new mongoose.Schema(
       index: true,
       lowercase: true,
     },
-    description: {
+    gender: {
       type: String,
-      default: "",
-      maxlength: 500,
+      required: true,
+      enum: ["Male", "Female"],
+      index: true,
+    },
+    image: {
+      url: { type: String, default: "" },
+      publicId: { type: String, default: "" },
+    },
+    displayOrder: {
+      type: Number,
+      default: 0,
+      index: true,
     },
     isActive: {
       type: Boolean,
@@ -30,8 +40,8 @@ const categorySchema = new mongoose.Schema(
 );
 
 categorySchema.pre("validate", function setSlug(next) {
-  if (!this.slug && this.name) {
-    this.slug = slugify(this.name);
+  if (!this.slug && this.name && this.gender) {
+    this.slug = slugify(`${this.name}-${this.gender}`);
   }
   next();
 });
